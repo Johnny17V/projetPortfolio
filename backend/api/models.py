@@ -32,7 +32,37 @@ class ProjetModel(models.Model):
 class ReseauSociaux(models.Model):
     name = models.CharField(max_length=50)
     icon_reseau = models.CharField(max_length=100, help_text="Class font awesome Reseau")
+    lien = models.URLField(max_length=200)
+    
+    def __str__(self):
+        return f"{self.name}"
     
     class Meta:
         verbose_name = 'reseau social'
         verbose_name_plural = 'reseau sociaux'
+        
+class Experience(models.Model):
+    poste = models.CharField(max_length=150)
+    entreprise = models.CharField(max_length=150)
+    date_debut = models.DateField()
+    date_fin = models.DateField(null = True, blank=True)
+    description_taches = models.TextField(blank=True)
+    
+    def __str__(self):
+        return f"{self.poste}"
+    
+    class Meta:
+        verbose_name = 'Expérience'
+        verbose_name_plural = 'Expériences'
+
+class Skill(models.Model):
+    name = models.CharField(max_length=100)
+    description = models.TextField()
+    
+    
+    def __str__(self):
+        return f"{self.name}"
+    
+    class Meta:
+        verbose_name = 'Skill'
+        verbose_name_plural = 'Skills'
