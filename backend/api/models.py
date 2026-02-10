@@ -29,3 +29,10 @@ class ProjetModel(models.Model):
         verbose_name = 'Projet'
         verbose_name_plural = 'Projets'
     
+class ReseauSociaux(models.Model):
+    name = models.CharField(max_length=50)
+    icon_reseau = models.CharField(max_length=100, help_text="Class font awesome Reseau")
+    
+    class Meta:
+        verbose_name = 'reseau social'
+        verbose_name_plural = 'reseau sociaux'
