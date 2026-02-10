@@ -1,0 +1,58 @@
+# ==========================================
+# 1. PYTHON / DJANGO (Dossier backend/)
+# ==========================================
+
+# Byte-compiled / optimized / DLL files
+**/__pycache__/
+**/*.py[cod]
+**/*$py.class
+
+# Environnement virtuel
+venv/
+env/
+.env
+.venv/
+
+# Django spécifique
+**/db.sqlite3
+**/db.sqlite3-journal
+**/media/
+**/staticfiles/
+**/local_settings.py
+
+# ==========================================
+# 2. ANGULAR / NODE (Dossier frontend/)
+# ==========================================
+
+# Dépendances
+**/node_modules/
+
+# Sorties de build
+**/dist/
+**/tmp/
+**/out-tsc/
+**/bazel-out/
+
+# Cache Angular
+**/.angular/
+
+# Logs npm
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# ==========================================
+# 3. ÉDITEURS ET SYSTÈME
+# ==========================================
+
+# IDEs (VS Code, PyCharm, WebStorm)
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS spécifiques
+.DS_Store
+Thumbs.db
