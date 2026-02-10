@@ -3,7 +3,7 @@ from django.db import models
 # Create your models here.
 
 class Tags(models.Model):
-    name = models.CharField(max_length=50)
+    name = models.CharField(max_length=50, unique=True)
     icon_class = models.CharField(max_length = 50, blank = True, help_text="Class Font Awesome")
     
     def __str__(self):
@@ -15,12 +15,12 @@ class Tags(models.Model):
     
 
 class ProjetModel(models.Model):
-    Description = models.TextField()
+    description = models.TextField()
     titre = models.CharField(max_length=100)
-    lienGitHub = models.URLField(max_length=300, blank=True)
-    imageProjet = models.ImageField(upload_to= "api/images/", blank=True, null=True)
-    rapportPDF = models.FileField(upload_to = "api/rapports/", blank = True, null = True)
-    lesTags = models.ManyToManyField(Tags, related_name='projets')
+    lien_gitHub = models.URLField(max_length=300, blank=True)
+    image_Projet = models.ImageField(upload_to= "api/images/", blank=True, null=True)
+    rappor_PDF = models.FileField(upload_to = "api/rapports/", blank = True, null = True)
+    les_tags = models.ManyToManyField(Tags, related_name='projets')
     
     def __str__(self):
         return f"{self.titre}"
