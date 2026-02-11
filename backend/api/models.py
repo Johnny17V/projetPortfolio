@@ -18,7 +18,7 @@ class ProjetModel(models.Model):
     description = models.TextField()
     titre = models.CharField(max_length=100)
     lien_gitHub = models.URLField(max_length=300, blank=True)
-    image_Projet = models.ImageField(upload_to= "api/images/", blank=True, null=True)
+    image_Projet = models.ImageField(upload_to= "api/images_projets/", blank=True, null=True)
     rappor_PDF = models.FileField(upload_to = "api/rapports/", blank = True, null = True)
     les_tags = models.ManyToManyField(Tags, related_name='projets')
     
