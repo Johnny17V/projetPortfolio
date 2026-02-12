@@ -8,7 +8,7 @@ class TagsSerialiser(serializers.ModelSerializer):
         fields = "__all__"
         
 class ProjetModelSerialiser(serializers.ModelSerializer):
-    
+    les_tags = TagsSerialiser(many=True, read_only=True)
     class Meta:
         model = ProjetModel
         fields = "__all__"
