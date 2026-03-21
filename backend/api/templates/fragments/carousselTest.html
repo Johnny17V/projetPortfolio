@@ -1,122 +1,39 @@
+{% load static %}
 
-<section>
-    <header>
-        <h2>Horizontal Cards</h2>
-        <div class="tags">
-            <span>Scroll Buttons</span>
-            <span>Scroll Markers</span>
-            <span>Scroll-State Queries</span>
-            <span>Scroll Initial Target</span>
-            <span>Anchor</span>
-            <span>Full Bleed</span>
+<div class="carousel-wrapper px-3 mt-4 mb-5">
+    
+    <button class="carousel-btn left glass js-scroll-left">
+        <i class="bi bi-chevron-left fs-4"></i>
+    </button>
+
+    <div class="carousel-scroll js-carousel-container">
+        
+        {% for projet in projets %}
+        <div class="carousel-slide">
+            <article class="card">
+                <figure>
+                    <picture>
+                        {% if projet.image %}
+                        <img src="{{ projet.image.url }}" alt="{{ projet.titre }}" />
+                        {% else %}
+                        <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?q=80&w=800&auto=format&fit=crop" alt="Default" />
+                        {% endif %}
+                    </picture>
+                    <figcaption>
+                        <h5>{{ projet.titre|default:"Mon Projet" }}</h5>
+                        <p>{{ projet.description|truncatewords:15 }}</p>
+                        <a href="#" class="text-gold text-decoration-none fw-bold mt-2">Check it out <i class="bi bi-arrow-right"></i></a>
+                    </figcaption>
+                </figure>
+            </article>
         </div>
-        <p>Buttons and markers both anchored to the bottom</p>
-    </header>
+        {% empty %}
+        <p class="text-white-50 text-center w-100">Aucun projet à afficher.</p>
+        {% endfor %}
 
-    <div role="region" aria-label="Card carousel demo">
-        <div class="carousel carousel--scroll-markers carousel--scroll-buttons carousel--offscreen-inert"
-            aria-live="polite">
-            <div class="carousel__slide" data-label="Cyber Jumper">
-                <article class="card snapped">
-                    <figure>
-                        <picture>
-                            <img src="https://assets.codepen.io/2585/Roboto.svg"
-                                alt="a black and white line drawing of a futuristic person in a jacket pants and helmet striding forward"
-                                height="500" width="500" />
-                        </picture>
-                        <figcaption>
-                            <h5>Cyber Jumper</h5>
-                            <p>
-                                Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-                                Quae, neque.
-                            </p>
-                            <a href="#">Check it out</a>
-                        </figcaption>
-                    </figure>
-                </article>
-            </div>
-
-            <div class="carousel__slide" data-label="Jam Strut">
-                <article class="card">
-                    <figure>
-                        <picture>
-                            <img src="https://assets.codepen.io/2585/Entertainment.svg"
-                                alt="a black and white drawing of a person with curly hair, wearing a jacket and pants and holding, what looks like a small media player"
-                                height="500" width="500" />
-                        </picture>
-                        <figcaption>
-                            <h5>Jam Strut</h5>
-                            <p>
-                                Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                                laboris nisi ut aliquip ex ea commodo consequat.
-                            </p>
-                            <a href="#">Check it out</a>
-                        </figcaption>
-                    </figure>
-                </article>
-            </div>
-
-            <div class="carousel__slide" data-label="Mechanical Love">
-                <article class="card scroll-start">
-                    <figure>
-                        <picture>
-                            <img src="https://assets.codepen.io/2585/Mechanical+Love.svg"
-                                alt="a black and white drawing of two people standing side by side with their arms around each other and wearing backpacks"
-                                height="500" width="500" />
-                        </picture>
-                        <figcaption>
-                            <h5>Mechanical Love</h5>
-                            <p>
-                                Duis aute irure dolor in reprehenderit in voluptate velit esse
-                                cillum dolore eu fugiat nulla pariatur.
-                            </p>
-                            <a href="#">Check it out</a>
-                        </figcaption>
-                    </figure>
-                </article>
-            </div>
-
-            <div class="carousel__slide" data-label="Waiting Patiently">
-                <article class="card">
-                    <figure>
-                        <picture>
-                            <img src="https://assets.codepen.io/2585/Waiting.svg"
-                                alt="a black and white drawing of a person sitting cross-legged" height="500"
-                                width="500" />
-                        </picture>
-                        <figcaption>
-                            <h5>Waiting Patiently</h5>
-                            <p>
-                                Excepteur sint occaecat cupidatat non proident, sunt in culpa
-                                qui officia deserunt mollit anim id est laborum.
-                            </p>
-                            <a href="#">Check it out</a>
-                        </figcaption>
-                    </figure>
-                </article>
-            </div>
-
-            <div class="carousel__slide" data-label="New Beginnings Are Beautiful">
-                <article class="card">
-                    <figure>
-                        <picture>
-                            <img src="https://assets.codepen.io/2585/New+Beginnings.svg"
-                                alt="a black and white drawing of a person sitting in an armchair reading a book, the chair has wires that are connected to the person."
-                                height="500" width="500" />
-                        </picture>
-                        <figcaption>
-                            <h5>New Beginnings Are Beautiful</h5>
-                            <p>
-                                Sed ut perspiciatis unde omnis iste natus error sit voluptatem
-                                accusantium doloremque laudantium, totam rem aperiam, eaque
-                                ipsa quae ab illo inventore veritatis et quasi architecto
-                                beatae vitae dicta sunt explicabo.
-                            </p>
-                            <a href="#">Check it out</a>
-                        </figcaption>
-                    </figure>
-                </article>
-            </div>
-        </div>
     </div>
-</section>
+
+    <button class="carousel-btn right glass js-scroll-right">
+        <i class="bi bi-chevron-right fs-4"></i>
+    </button>
+</div>

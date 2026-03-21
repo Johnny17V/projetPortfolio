@@ -1,0 +1,97 @@
+/* --- 1. Conteneur et Défilement --- */
+.carousel-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+.carousel-scroll {
+    display: grid;
+    grid-auto-flow: column;
+    gap: 1.5rem;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory; /* Magnétisme activé */
+    scrollbar-width: none; /* Cache la scrollbar Firefox */
+    padding-bottom: 2rem;
+    padding-top: 1rem;
+    scroll-behavior: smooth; /* Défilement fluide natif */
+}
+
+/* Cache la scrollbar Chrome/Safari */
+.carousel-scroll::-webkit-scrollbar {
+    display: none; 
+}
+
+/* --- 2. Boutons de navigation --- */
+.carousel-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 30;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    color: white;
+    padding: 0;
+    border: none;
+}
+.carousel-btn:hover { background-color: rgba(255, 255, 255, 0.2); }
+.carousel-btn.left { left: -20px; }
+.carousel-btn.right { right: -20px; }
+
+@media (max-width: 768px) {
+    .carousel-btn { display: none; } /* Cache les boutons sur mobile (ils utiliseront le doigt) */
+}
+
+/* --- 3. Design des Cartes (Inspiré de Chrome Labs) --- */
+.carousel-slide {
+    scroll-snap-align: center; /* S'arrête au centre au défilement */
+}
+
+.card {
+    inline-size: min(300px, 80vw); /* Taille de la carte */
+    height: 400px;
+    background: #1a1a1a;
+    border-radius: 24px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+    overflow: hidden;
+    position: relative;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.card > figure {
+    display: grid;
+    place-items: end stretch;
+    height: 100%;
+    margin: 0;
+}
+
+/* Superpose l'image et le texte */
+.card > figure > * { grid-area: 1 / 1; }
+
+.card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.card:hover img { transform: scale(1.05); } /* Petit zoom au survol */
+
+.card > figure > figcaption {
+    max-inline-size: 100%;
+    display: grid;
+    justify-items: start;
+    gap: 0.5rem;
+    background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.4) 70%, transparent 100%);
+    padding: 2rem 1.5rem 1.5rem 1.5rem;
+    z-index: 2;
+}
+
+.card h5 { color: #ffffff; font-weight: bold; margin: 0; }
+.card p { color: #cccccc; margin: 0; font-size: 0.9rem; }

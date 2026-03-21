@@ -1,7 +1,8 @@
 from django.urls import path, include
 from .api import TagsViewSet, ProjetModelViewSet, ReseauSociauxViewSet, ExperienceViewSet, SkillViewSet
 from rest_framework.routers import DefaultRouter
-from . import views  # <-- Import de ta nouvelle vue
+from . import views 
+
 
 router = DefaultRouter()
 router.register(r'projets', ProjetModelViewSet, basename='projets')
@@ -17,3 +18,4 @@ urlpatterns = [
     # Tes routes API générées par le router
     path('', include(router.urls))
 ]
+
