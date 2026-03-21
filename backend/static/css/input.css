@@ -1,0 +1,93 @@
+    .carousel {
+    	inline-size: 100cqi;
+    	list-style-type: none;
+    	padding: var(--size-3);
+    	scroll-padding: var(--size-3);
+
+    	display: grid;
+    	grid-auto-flow: column;
+    	gap: var(--size-5);
+
+    	&::scroll-marker-group {
+    		padding-block: 0;
+    		block-size: 44px;
+    		/* match buttons */
+    	}
+
+    	&::before,
+    	&::after {
+    		content: "";
+    		display: block;
+    		inline-size: 50cqi;
+    	}
+
+    	.carousel__slide {
+    		container-type: scroll-state;
+    		scroll-snap-align: center;
+    		scroll-snap-stop: always;
+    	}
+
+    	@media (prefers-reduced-motion: no-preference) {
+    		& {
+    			scroll-behavior: smooth;
+    		}
+
+    		@container not scroll-state(snapped: inline) {
+    			figcaption {
+    				transform: translateY(100%);
+    			}
+    		}
+    	}
+
+    	&::scroll-button(right),
+    	&::scroll-button(left) {
+    		position-area: var(--_inner-under);
+    	}
+    }
+
+    .card {
+    	inline-size: min(var(--size-content-2), 90cqi);
+    	background: var(--surface-2);
+    	border-radius: var(--radius-3);
+    	box-shadow: var(--shadow-2);
+    	overflow: clip;
+    	align-content: end;
+
+    	>figure {
+    		display: grid;
+    		place-items: end stretch;
+
+    		>* {
+    			grid-area: 1 / 1;
+    		}
+
+    		>figcaption {
+    			max-inline-size: 100%;
+    			display: grid;
+    			justify-items: start;
+    			gap: var(--size-2);
+    			transition:
+    				transform 0.3s var(--ease-3),
+    				opacity 0.3s var(--ease-3);
+    			background: linear-gradient(to top, #000, 75%, #0000);
+    			padding-inline: var(--size-5);
+    			padding-block: var(--size-9) var(--size-3);
+
+    			&:focus-within {
+    				transform: translateY(0%);
+    			}
+
+    			& h5 {
+    				color: var(--gray-0);
+    			}
+
+    			& p {
+    				color: var(--gray-4);
+    			}
+    		}
+    	}
+
+    	@media (prefers-color-scheme: light) {
+    		background: white;
+    	}
+    }

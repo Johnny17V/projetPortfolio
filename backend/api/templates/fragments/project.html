@@ -1,0 +1,18 @@
+<div class="project-card">
+    <div class="project-img-wrapper mb-3">
+        {% if projet.image_Projet %}
+        <img src="{{ projet.image_Projet.url }}" alt="{{ projet.titre }}">
+        {% else %}
+        <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=800&auto=format&fit=crop"
+            alt="Default Project">
+        {% endif %}
+    </div>
+    <h5 class="fw-bold mb-1 text-truncate">{{ projet.titre }}</h5>
+    <p class="text-white-50 small text-truncate">
+        {% for tag in projet.les_tags.all %}
+        {{ tag.name }}{% if not forloop.last %}, {% endif %}
+        {% empty %}
+        Non catégorisé
+        {% endfor %}
+    </p>
+</div>
