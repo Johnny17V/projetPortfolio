@@ -20,13 +20,13 @@ def showcase_view(request):
 def unPortfolio(request, pk):
     profile = get_object_or_404(Profile, pk=pk)
     experience = Experience.objects.filter(owner__id = pk)
-    skill = Skill.objects.filter(owner__id = pk)
+    skills = Skill.objects.filter(owner__id = pk)
     projets = ProjetModel.objects.filter(owner__id = pk)
     reseau = ReseauSociaux.objects.filter(owner__id = pk)
     context = {
         'profile' : profile,
         'experience' : experience,
-        'skill' : skill,
+        'skills' : skills,
         'projets' : projets,
         'reseau' : reseau
     }

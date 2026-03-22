@@ -1,0 +1,11 @@
+<div class="grille-skills">
+    {% for skill in skills %}
+    <div class="carte-skill">
+        <h3 class="nom-skill">{{ skill.name }}</h3>
+        
+        <p class="description-skill">
+            {{ skill.description|linebreaksbr }}
+        </p>
+    </div>
+    {% endfor %}
+</div>

@@ -20,7 +20,7 @@
         <div class="student-scroll" id="studentContainer">
             {% for profile in profiles %}
             <div class="student-card">
-                <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?q=80&w=800&auto=format&fit=crop" alt="Default">
+                <img src={{profile.photo.url}} alt="Default">
                 {% include "../fragments/studentsProfils.html" %}
             </div>
             {% empty %}

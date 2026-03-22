@@ -4,13 +4,13 @@
 {% block title %}J17V - Portfolio de {{ profile.first_name|default:"Étudiant" }}{% endblock %}
 
 {% block extra_css %}
-<link rel="stylesheet" href="{% static 'css/carousselTest.css' %}"> 
+<link rel="stylesheet" href="{% static 'css/input.css' %}">
 {% endblock %}
 
 {% block content %}
-<main class="container py-5">
-    <div class="row">
-        <div class="col text-center justify-content-between">
+<main class="container py-5 ">
+    <div class="row ">
+        <div class="col-6 text-center text_me">
             <div class="row text-center">
                 <p class="lead text-white-50">TECH IS EVERYWHERE</p>
             </div>
@@ -21,19 +21,52 @@
                 <p class="second-lead text-white-50">Étudiant à l'EPT</p>
             </div>
         </div>
-        <div class="col">
-            </div>
+        <div class="col container">
+            {% include "../fragments/profilePicture.html"%}
+        </div>
     </div>
-    
+    <div class="row align-items-center container titre_projet">
+        <h1 class="col align-self-center text-center">
+            Mes Projets
+        </h1>
+    </div>
+
     <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-5 g-4 mt-4">
         {% for projet in projets %}
-            {% include "../fragments/project.html" %}
+        {% include "../fragments/project.html" %}
         {% endfor %}
-        
+
     </div>
 
-    
+    <div class=" row experience">
+        <div class="row align-items-center container titre_projet">
+            <h1 class="col align-self-center text-center">
+                Mes experiences
+            </h1>
+        </div>
+        {% for experience in experience %}
+        {% include "../fragments/experience_card.html" %}
+        {% endfor %}
+    </div>
+
+    <div class="skills row">
+        <div class="row align-items-center container titre_projet">
+            <h1 class="col align-self-center text-center">
+                Mes skills
+            </h1>
+        </div>
+        {%include "../fragments/skills.html"%}
+    </div>
+
+    <div class="reseaux row">
+        <div class="row align-items-center container titre_projet">
+            <h1 class="col align-self-center text-center">
+                Mes Réseaux
+            </h1>
+        </div>
+        {% include "../fragments/reseau.html" %}
+    </div>
+
+
 </main>
 {% endblock %}
-
-

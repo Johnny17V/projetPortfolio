@@ -1,0 +1,15 @@
+<div class="conteneur-reseaux-large">
+
+    {% for reseau in reseau %}
+        <a href="{{ reseau.lien }}" target="_blank" rel="noopener noreferrer" class="lien-reseau">
+            
+            <div class="cercle-icon">
+                <i class="{{ reseau.icon_reseau }}"></i>
+            </div>
+            
+            <span class="nom-reseau">{{ reseau.name }}</span>
+            
+        </a>
+    {% endfor %}
+
+</div>

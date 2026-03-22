@@ -1,0 +1,20 @@
+<div class="carte-experience">
+    <div class="en-tete-experience">
+        <h3 class="titre-poste">{{ experience.poste }}</h3>
+        
+        <span class="dates-experience">
+            {{ experience.date_debut|date:"M Y" }} - 
+            {% if experience.date_fin %}
+                {{ experience.date_fin|date:"M Y" }}
+            {% else %}
+                Présent
+            {% endif %}
+        </span>
+    </div>
+    
+    <h4 class="nom-entreprise">{{ experience.entreprise }}</h4>
+    
+    <p class="description-taches">
+        {{ experience.description_taches|linebreaksbr }}
+    </p>
+</div>
