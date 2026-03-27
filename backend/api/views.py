@@ -89,7 +89,7 @@ class ReseauxListView(LoginRequiredMixin, ListView):
 # 2. CREATE : Créer un nouveau projet
 class ProjetCreateView(LoginRequiredMixin, CreateView):
     model = ProjetModel
-    template_name = 'ton_app/projet_form.html'
+    template_name = 'api/createOrUpdateProjet.html'
     # On précise les champs du formulaire (Attention : on n'inclut PAS 'owner')
     fields = ['titre', 'description', 'lien_gitHub', 'image_Projet', 'rappor_PDF', 'les_tags']
     success_url = reverse_lazy('dashboard') # Où aller après la création ?
@@ -100,6 +100,65 @@ class ProjetCreateView(LoginRequiredMixin, CreateView):
         form.instance.owner = self.request.user
         return super().form_valid(form)
 
+class ExperienceCreateView(LoginRequiredMixin, CreateView):
+    model = Experience
+    template_name = 'api/createOrUpdateExperience.html'
+    fields = ['poste', 'entreprise', 'date_debut', 'date_fin', 'description_taches']
+    success_url = reverse_lazy('experience')
+    
+    def get_form(self, form_class=None):
+        form = super().get_form(form_class)
+        # On force les champs date à utiliser le type HTML "date"
+        form.fields['date_debut'].widget.input_type = 'date'
+        form.fields['date_fin'].widget.input_type = 'date'
+        return form
+    
+    def form_valid(self, form):
+        # On dit que le 'owner' de ce nouveau projet est l'utilisateur connecté
+        form.instance.owner = self.request.user
+        return super().form_valid(form)
+    
+class SkillsCreateView(LoginRequiredMixin, CreateView):
+    model = Skill
+    template_name = 'api/createOrUpdateSkill.html'
+    # On précise les champs du formulaire (Attention : on n'inclut PAS 'owner')
+    fields = ['name', 'description']
+    success_url = reverse_lazy('skills') # Où aller après la création ?
+
+    # C'EST ICI QU'ON ASSIGNE LE PROPRIÉTAIRE :
+    def form_valid(self, form):
+        # On dit que le 'owner' de ce nouveau projet est l'utilisateur connecté
+        form.instance.owner = self.request.user
+        return super().form_valid(form)
+    
+
+class TagsCreateView(LoginRequiredMixin, CreateView):
+    model = Tags
+    template_name = 'api/createOrUpdateTags.html'
+    # On précise les champs du formulaire (Attention : on n'inclut PAS 'owner')
+    fields = ['name', 'icon_class']
+    success_url = reverse_lazy('tags') # Où aller après la création ?
+
+    # C'EST ICI QU'ON ASSIGNE LE PROPRIÉTAIRE :
+    def form_valid(self, form):
+        # On dit que le 'owner' de ce nouveau projet est l'utilisateur connecté
+        form.instance.owner = self.request.user
+        return super().form_valid(form)
+    
+    
+class ReseauxCreateView(LoginRequiredMixin, CreateView):
+    model = ReseauSociaux
+    template_name = 'api/createOrUpdateReseau.html'
+    # On précise les champs du formulaire (Attention : on n'inclut PAS 'owner')
+    fields = ['name', 'icon_reseau', 'lien']
+    success_url = reverse_lazy('reseaux') # Où aller après la création ?
+
+    # C'EST ICI QU'ON ASSIGNE LE PROPRIÉTAIRE :
+    def form_valid(self, form):
+        # On dit que le 'owner' de ce nouveau projet est l'utilisateur connecté
+        form.instance.owner = self.request.user
+        return super().form_valid(form)
+    
 # 3. UPDATE : Modifier un projet existant
 class ProjetUpdateView(LoginRequiredMixin, UpdateView):
     model = ProjetModel

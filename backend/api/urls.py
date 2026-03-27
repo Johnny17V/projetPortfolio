@@ -23,8 +23,11 @@ urlpatterns = [
     path("dashboard/experience/", views.ExperienceListView.as_view(), name = 'experience'),
     path("dashboard/skills/", views.SkillListView.as_view(), name = 'skills'),
     path("dashboard/tags/", views.TagsListView.as_view(), name = 'tags'),
-    path("dashboard/reseaux/", views.ReseauxListView.as_view(), name = 'reseaux')
-    
-    
+    path("dashboard/reseaux/", views.ReseauxListView.as_view(), name = 'reseaux'),
+    path("dashboard/profil/save/", views.ProjetCreateView.as_view(), name='saveProjet'),
+    path("dashboard/experience/save/", views.ExperienceCreateView.as_view(), name = 'saveExperience'),
+    path("dashboard/skills/save/", views.SkillsCreateView.as_view(), name = 'saveSkills'),
+    path("dashboard/tags/save/", views.TagsCreateView.as_view(), name = 'saveTags'),
+    path("dashboard/reseaux/save/", views.ReseauxCreateView.as_view(), name = 'saveReseaux')
 ]
 
