@@ -1,0 +1,62 @@
+{% extends 'api/dashboard_base.html' %}
+
+{% block title %}Mes Tags | Dashboard{% endblock %}
+
+{% block content %}
+<div class="content-header">
+    <h1 class="page-title">Mes Tags</h1>
+    <a href="#" class="btn-primary"><i class="fas fa-plus"></i> Nouveau Tag</a>
+</div>
+
+<div class="table-container">
+    <table class="dashboard-table">
+        <thead>
+            <tr>
+                <th>Tag (Aperçu)</th>
+                <th>Classe Font Awesome</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for tag in tags %}
+            <tr>
+                <td class="col-main-info">
+                    <div style="display: flex; align-items: center; gap: 12px;">
+                        
+                        <div style="width: 30px; text-align: center;">
+                            <i class="{% if tag.icon_class %}{{ tag.icon_class }}{% else %}fas fa-tag{% endif %}" 
+                               style="color: var(--gold); font-size: 1.4rem;"></i>
+                        </div>
+                        
+                        <span class="item-title" style="margin: 0;">{{ tag.name }}</span>
+                        
+                    </div>
+                </td>
+                
+                <td class="col-description">
+                    {% if tag.icon_class %}
+                        <span style="font-family: monospace; color: var(--text-muted); background-color: rgba(255,255,255,0.05); padding: 4px 8px; border-radius: 4px;">
+                            {{ tag.icon_class }}
+                        </span>
+                    {% else %}
+                        <span class="text-muted">-</span>
+                    {% endif %}
+                </td>
+                
+                <td class="col-actions">
+                    <a href="#" class="action-btn edit" title="Modifier"><i class="fas fa-pen"></i></a>
+                    <a href="#" class="action-btn delete" title="Supprimer"><i class="fas fa-trash"></i></a>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="3" class="empty-state">
+                    <i class="fas fa-tags fa-2x" style="margin-bottom: 10px; opacity: 0.5;"></i><br>
+                    Vous n'avez pas encore créé de tag.
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

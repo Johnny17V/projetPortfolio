@@ -70,6 +70,21 @@ class SkillListView(LoginRequiredMixin, ListView):
     def get_queryset(self):
         return Skill.objects.filter(owner=self.request.user)
     
+class TagsListView(LoginRequiredMixin, ListView):
+    model = Tags
+    template_name = "api/dashboard_tags.html"
+    context_object_name = 'tags'
+    
+    def get_queryset(self):
+        return Tags.objects.filter(owner=self.request.user)
+    
+class ReseauxListView(LoginRequiredMixin, ListView):
+    model = ReseauSociaux
+    template_name = "api/dashboard_reseaux.html"
+    context_object_name = 'reseaux'
+    
+    def get_queryset(self):
+        return ReseauSociaux.objects.filter(owner=self.request.user)
     
 # 2. CREATE : Créer un nouveau projet
 class ProjetCreateView(LoginRequiredMixin, CreateView):

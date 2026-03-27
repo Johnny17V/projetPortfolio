@@ -1,0 +1,57 @@
+{% extends 'api/dashboard_base.html' %}
+
+{% block title %}Mes Réseaux Sociaux | Dashboard{% endblock %}
+
+{% block content %}
+<div class="content-header">
+    <h1 class="page-title">Mes Réseaux Sociaux</h1>
+    <a href="#" class="btn-primary"><i class="fas fa-plus"></i> Nouveau Réseau</a>
+</div>
+
+<div class="table-container">
+    <table class="dashboard-table">
+        <thead>
+            <tr>
+                <th>Réseau Social</th>
+                <th>Lien du profil</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for reseau in reseaux %}
+            <tr>
+                <td class="col-main-info">
+                    <div style="display: flex; align-items: center; gap: 15px;">
+                        
+                        <div style="width: 35px; height: 35px; background-color: rgba(255,255,255,0.05); border-radius: 8px; display: flex; justify-content: center; align-items: center;">
+                            <i class="{{ reseau.icon_reseau }}" style="color: var(--gold); font-size: 1.2rem;"></i>
+                        </div>
+                        
+                        <span class="item-title" style="margin: 0;">{{ reseau.name }}</span>
+                        
+                    </div>
+                </td>
+                
+                <td class="col-link">
+                    <a href="{{ reseau.lien }}" target="_blank" rel="noopener noreferrer" style="color: var(--text-muted); text-decoration: none; transition: color 0.3s ease;">
+                        <i class="fas fa-external-link-alt" style="font-size: 0.8rem; margin-right: 5px;"></i>
+                        {{ reseau.lien|truncatechars:40 }} </a>
+                </td>
+                
+                <td class="col-actions">
+                    <a href="#" class="action-btn edit" title="Modifier"><i class="fas fa-pen"></i></a>
+                    <a href="#" class="action-btn delete" title="Supprimer"><i class="fas fa-trash"></i></a>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="3" class="empty-state">
+                    <i class="fas fa-share-nodes fa-2x" style="margin-bottom: 10px; opacity: 0.5;"></i><br>
+                    Vous n'avez pas encore ajouté de réseau social.
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
