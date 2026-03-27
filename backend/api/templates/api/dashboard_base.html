@@ -1,0 +1,61 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Dashboard | J17V{% endblock %}</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+</head>
+<body class="dashboard-body">
+
+    <aside class="dashboard-sidebar">
+        <div class="sidebar-logo">
+            <a href="/">J17<span class="logo-v">V</span></a>
+        </div>
+        
+        <nav class="sidebar-nav">
+            <p class="nav-section-title">MON PORTFOLIO</p>
+            <a href="#" class="nav-item active"><i class="fas fa-folder-open"></i> Projets</a>
+            <a href="{% url 'experience' %}" class="nav-item"><i class="fas fa-briefcase"></i> Expériences</a>
+            <a href="{% url 'skills'%}" class="nav-item"><i class="fas fa-star"></i> Compétences</a>
+            <a href="#" class="nav-item"><i class="fas fa-tags"></i> Tags</a>
+            <a href="#" class="nav-item"><i class="fas fa-share-nodes"></i> Réseaux Sociaux</a>
+
+            <p class="nav-section-title">GÉNÉRAL</p>
+            <a href="#" class="nav-item"><i class="fas fa-user"></i> Mon Profil</a>
+            <a href="{% url 'showcase' %}" class="nav-item logout-link"><i class="fas fa-sign-out-alt"></i> Déconnexion</a>
+        </nav>
+    </aside>
+
+    <main class="dashboard-main">
+        
+        <header class="dashboard-header">
+            <div class="search-bar">
+                <i class="fas fa-search"></i>
+                <input type="text" placeholder="Rechercher...">
+            </div>
+            
+            <div class="header-user-info">
+                <span class="user-name">Salut, {{ request.user.username }}</span>
+                <div class="user-avatar">
+                    {% if request.user.photo %}
+                        <img src="{{ request.user.photo.url }}" alt="Avatar">
+                    {% else %}
+                        <i class="fas fa-user-circle"></i>
+                    {% endif %}
+                </div>
+            </div>
+        </header>
+
+        <div class="dashboard-content">
+            {% block content %}
+            {% endblock %}
+        </div>
+        
+    </main>
+
+</body>
+</html>

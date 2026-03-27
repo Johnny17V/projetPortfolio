@@ -17,6 +17,10 @@ urlpatterns = [
     path('showcase/<int:pk>/', views.unPortfolio, name='portfolio'),
     path("showcase/login/", auth_views.LoginView.as_view(template_name = "api/login.html"), name="login"),
     # Tes routes API générées par le router
-    path('', include(router.urls))
+    path('', include(router.urls)),
+    path("dashboard/profil/", views.ProjetListView.as_view(), name = 'dashboard'),
+    path("dashboard/experience/", views.ExperienceListView.as_view(), name = 'experience'),
+    path("dashboard/skills/", views.SkillListView.as_view(), name = 'skills')
+    
 ]
 

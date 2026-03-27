@@ -2,6 +2,9 @@
 # Create your views here.
 from django.shortcuts import render, get_object_or_404
 from .models import *
+from django.views.generic import ListView, CreateView, UpdateView, DeleteView
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.urls import reverse_lazy
 
 def showcase_view(request):
     # On récupère tous les utilisateurs (étudiants). 
@@ -35,3 +38,73 @@ def unPortfolio(request, pk):
     
 def login(request):
     return render(request, "api/login.html")
+
+
+
+
+# 1. READ : Afficher la liste des projets de l'utilisateur
+class ProjetListView(LoginRequiredMixin, ListView):
+    model = ProjetModel
+    template_name = 'api/projet.html' # Le chemin vers ton HTML
+    context_object_name = 'projets'
+
+    # C'EST ICI LA MAGIE DU FILTRE :
+    def get_queryset(self):
+        # On ne récupère que les projets dont le propriétaire est l'utilisateur qui fait la requête
+        return ProjetModel.objects.filter(owner=self.request.user)
+
+class ExperienceListView(LoginRequiredMixin, ListView):
+    model = Experience
+    template_name = 'api/dashboard_experience.html'
+    context_object_name = 'experiences'
+    
+    def get_queryset(self):
+        return Experience.objects.filter(owner=self.request.user)
+    
+    
+class SkillListView(LoginRequiredMixin, ListView):
+    model = Skill
+    template_name = 'api/dashboard_skills.html'
+    context_object_name = 'skills'
+    
+    def get_queryset(self):
+        return Skill.objects.filter(owner=self.request.user)
+    
+    
+# 2. CREATE : Créer un nouveau projet
+class ProjetCreateView(LoginRequiredMixin, CreateView):
+    model = ProjetModel
+    template_name = 'ton_app/projet_form.html'
+    # On précise les champs du formulaire (Attention : on n'inclut PAS 'owner')
+    fields = ['titre', 'description', 'lien_gitHub', 'image_Projet', 'rappor_PDF', 'les_tags']
+    success_url = reverse_lazy('dashboard') # Où aller après la création ?
+
+    # C'EST ICI QU'ON ASSIGNE LE PROPRIÉTAIRE :
+    def form_valid(self, form):
+        # On dit que le 'owner' de ce nouveau projet est l'utilisateur connecté
+        form.instance.owner = self.request.user
+        return super().form_valid(form)
+
+# 3. UPDATE : Modifier un projet existant
+class ProjetUpdateView(LoginRequiredMixin, UpdateView):
+    model = ProjetModel
+    template_name = 'ton_app/projet_form.html'
+    fields = ['titre', 'description', 'lien_gitHub', 'image_Projet', 'rappor_PDF', 'les_tags']
+    success_url = reverse_lazy('liste_projets')
+
+    # LA SÉCURITÉ ICI :
+    def get_queryset(self):
+        # En filtrant le queryset, un utilisateur ne pourra jamais charger le formulaire
+        # de modification d'un projet qui ne lui appartient pas (Erreur 404).
+        return ProjetModel.objects.filter(owner=self.request.user)
+
+# 4. DELETE : Supprimer un projet
+class ProjetDeleteView(LoginRequiredMixin, DeleteView):
+    model = ProjetModel
+    template_name = 'ton_app/projet_confirm_delete.html'
+    success_url = reverse_lazy('liste_projets')
+
+    # LA SÉCURITÉ ICI :
+    def get_queryset(self):
+        # Même principe que pour l'Update : impossible de supprimer le projet d'un autre
+        return ProjetModel.objects.filter(owner=self.request.user)

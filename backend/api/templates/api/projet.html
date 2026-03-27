@@ -1,0 +1,65 @@
+{% extends 'api/dashboard_base.html' %} {% load static %}
+
+{% block title %}Mes Projets | Dashboard{% endblock %}
+
+{% block content %}
+<div class="content-header">
+    <h1 class="page-title">Mes Projets</h1>
+    <a href="#" class="btn-primary"><i class="fas fa-plus"></i> Nouveau Projet</a>
+</div>
+
+<div class="table-container">
+    <table class="dashboard-table">
+        <thead>
+            <tr>
+                <th>Projet</th>
+                <th>Tags</th>
+                <th>Lien GitHub</th>
+                <th>Statut / Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for projet in projets %}
+            <tr>
+                <td class="col-main-info">
+                    <div class="item-image">
+                        {% if projet.image_Projet %}
+                            <img src="{{ projet.image_Projet.url }}" alt="{{ projet.titre }}">
+                        {% else %}
+                            <div class="placeholder-img"><i class="fas fa-image"></i></div>
+                        {% endif %}
+                    </div>
+                    <div class="item-details">
+                        <span class="item-title">{{ projet.titre }}</span>
+                        <span class="item-subtitle">{{ projet.description|truncatechars:40 }}</span>
+                    </div>
+                </td>
+                
+                <td class="col-tags">
+                    {% for tag in projet.les_tags.all %}
+                        <span class="badge-tag">{{ tag.name }}</span>
+                    {% endfor %}
+                </td>
+                
+                <td class="col-link">
+                    {% if projet.lien_gitHub %}
+                        <a href="{{ projet.lien_gitHub }}" target="_blank" class="github-link"><i class="fab fa-github"></i> Voir le code</a>
+                    {% else %}
+                        <span class="text-muted">-</span>
+                    {% endif %}
+                </td>
+                
+                <td class="col-actions">
+                    <a href="#" class="action-btn edit" title="Modifier"><i class="fas fa-pen"></i></a>
+                    <a href="#" class="action-btn delete" title="Supprimer"><i class="fas fa-trash"></i></a>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="4" class="empty-state">Vous n'avez pas encore créé de projet.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
