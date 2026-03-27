@@ -32,3 +32,6 @@ def unPortfolio(request, pk):
     }
     return render(request, "api/onePortfolio.html", context=context)
     
+    
+def login(request):
+    return render(request, "api/login.html")

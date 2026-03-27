@@ -1,0 +1,68 @@
+{% extends "api/base.html" %} {% load static %}
+
+{% block title %}Connexion | J17V{% endblock %}
+
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/input.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="login-page-container">
+    <div class="login-box">
+        
+        <div class="login-visual">
+            <div class="visual-content">
+                <p class="quote-header">UNE PENSÉE SAGE</p>
+                <h1 class="visual-title">Atteignez<br>Vos Objectifs</h1>
+                <p class="visual-subtitle">
+                    Tu peux obtenir tout ce que tu souhaites avec du travail, 
+                    de la confiance envers le processus, et en respectant le plan.
+                </p>
+            </div>
+        </div>
+
+        <div class="login-form-section">
+            <h2 class="form-title">Bon retour</h2>
+            <p class="form-subtitle">Entrez vos identifiants pour accéder à votre compte</p>
+
+            <form method="POST" action="{% url 'login' %}" class="django-login-form">
+                {% csrf_token %}
+                
+                {% if form.errors %}
+                    <div class="form-errors">
+                        <p>Nom d'utilisateur ou mot de passe incorrect.</p>
+                    </div>
+                {% endif %}
+
+                <div class="input-group">
+                    <label for="id_username">Nom d'utilisateur</label>
+                    <input type="text" name="username" id="id_username" placeholder="Entrez votre pseudo" required>
+                </div>
+
+                <div class="input-group">
+                    <label for="id_password">Mot de passe</label>
+                    <input type="password" name="password" id="id_password" placeholder="Entrez votre mot de passe" required>
+                </div>
+
+                <div class="form-options">
+                    <label class="remember-me">
+                        <input type="checkbox" name="remember"> Se souvenir de moi
+                    </label>
+                    <a href="#" class="forgot-password">Mot de passe oublié ?</a>
+                </div>
+
+                <button type="submit" class="btn-submit-login">Se Connecter</button>
+
+                <button type="button" class="btn-google">
+                    <i class="fab fa-google"></i> Continuer avec Google
+                </button>
+            </form>
+
+            <p class="signup-prompt">
+                Vous n'avez pas de compte ? <a href="">S'inscrire</a>
+            </p>
+        </div>
+    </div>
+</div>
+{% endblock %}

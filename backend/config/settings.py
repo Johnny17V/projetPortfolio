@@ -138,4 +138,7 @@ USE_TZ = True
 STATIC_URL = 'static/'
 STATICFILES_DIRS  = [BASE_DIR / "static"]
 
+LOGIN_REDIRECT_URL = 'dashboard'  # Le 'name' de l'URL de votre dashboard
+LOGOUT_REDIRECT_URL = 'login'
+
 AUTH_USER_MODEL = 'api.Profile'
