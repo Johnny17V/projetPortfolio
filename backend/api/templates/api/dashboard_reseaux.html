@@ -40,7 +40,7 @@
                 
                 <td class="col-actions">
                     <a href="{% url 'updatereseaux' pk=reseau.id %}" class="action-btn edit" title="Modifier"><i class="fas fa-pen"></i></a>
-                    <a href="#" class="action-btn delete" title="Supprimer"><i class="fas fa-trash"></i></a>
+                    <a href="{% url 'deletereseaux' pk=reseau.id%}" class="action-btn delete" title="Supprimer"><i class="fas fa-trash"></i></a>
                 </td>
             </tr>
             {% empty %}

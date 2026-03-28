@@ -12,11 +12,11 @@ router.register(r'experiences', ExperienceViewSet, basename='experiences')
 router.register(r'skills', SkillViewSet, basename='skills')
 
 urlpatterns = [
-    # Ta nouvelle page vitrine sera accessible via http://localhost:8000/api/showcase/
+
     path('showcase/', views.showcase_view, name='showcase'),
     path('showcase/<int:pk>/', views.unPortfolio, name='portfolio'),
     path("showcase/login/", auth_views.LoginView.as_view(template_name = "api/login.html"), name="login"),
-    # Tes routes API générées par le router
+
     path('', include(router.urls)),
     
     path("dashboard/profil/", views.ProjetListView.as_view(), name = 'dashboard'),
@@ -35,6 +35,12 @@ urlpatterns = [
     path("dashboard/experience/<int:pk>/update/", views.ExperienceUpdateView.as_view(), name = 'updateexperience'),
     path("dashboard/skills/<int:pk>/update/", views.SkillsUpdateView.as_view(), name = 'updateskills'),
     path("dashboard/tags/<int:pk>/update/", views.TagsUpdateView.as_view(), name = 'updatetags'),
-    path("dashboard/reseaux/<int:pk>/update/", views.ReseauxUpdateView.as_view(), name = 'updatereseaux')
+    path("dashboard/reseaux/<int:pk>/update/", views.ReseauxUpdateView.as_view(), name = 'updatereseaux'),
+    
+    path("dashboard/profil/<int:pk>/delete/", views.ProjetDeleteView.as_view(), name = 'deletedashboard'),
+    path("dashboard/experience/<int:pk>/delete/", views.ExperienceDeleteView.as_view(), name = 'deleteexperience'),
+    path("dashboard/skills/<int:pk>/delete/", views.SkillDeleteView.as_view(), name = 'deleteskills'),
+    path("dashboard/tags/<int:pk>/delete/", views.TagDeleteView.as_view(), name = 'deletetags'),
+    path("dashboard/reseaux/<int:pk>/delete/", views.ReseauDeleteView.as_view(), name = 'deletereseaux'),
 ]
 

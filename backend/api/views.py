@@ -206,8 +206,42 @@ class ReseauxUpdateView(LoginRequiredMixin, UpdateView):
 # 4. DELETE : Supprimer un projet
 class ProjetDeleteView(LoginRequiredMixin, DeleteView):
     model = ProjetModel
-    template_name = 'api/createOrUpdateProjet.html'
+    template_name = 'api/delete.html'
     success_url = reverse_lazy('dashboard')
 
     def get_queryset(self):
         return ProjetModel.objects.filter(owner=self.request.user)
+    
+    
+class SkillDeleteView(LoginRequiredMixin, DeleteView):
+    model = Skill
+    template_name = 'api/delete.html'
+    success_url = reverse_lazy('skills')
+
+    def get_queryset(self):
+        return Skill.objects.filter(owner=self.request.user)
+
+
+class ReseauDeleteView(LoginRequiredMixin, DeleteView):
+    model = ReseauSociaux
+    template_name = 'api/delete.html'
+    success_url = reverse_lazy('reseaux')
+
+    def get_queryset(self):
+        return ReseauSociaux.objects.filter(owner=self.request.user)
+
+class TagDeleteView(LoginRequiredMixin, DeleteView):
+    model = Tags
+    template_name = 'api/delete.html'
+    success_url = reverse_lazy('tags')
+
+    def get_queryset(self):
+        return Tags.objects.filter(owner=self.request.user)
+    
+class ExperienceDeleteView(LoginRequiredMixin, DeleteView):
+    model = Experience
+    template_name = 'api/delete.html'
+    success_url = reverse_lazy('experience')
+
+    def get_queryset(self):
+        return Experience.objects.filter(owner=self.request.user)

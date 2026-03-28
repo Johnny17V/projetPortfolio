@@ -1,0 +1,20 @@
+{% extends 'api/dashboard_base.html' %}
+
+{% block content %}
+<div class="content-header">
+    <h1 class="page-title">Confirmer la suppression</h1>
+</div>
+
+<div class="form-panel">
+    <p>Êtes-vous sûr de vouloir supprimer ? Cette action est irréversible.</p>
+    
+    <form method="POST">
+        {% csrf_token %}
+        <div class="form-actions">
+            <a href="{% url 'dashboard' %}" class="btn-secondary">Non, annuler</a>
+            
+            <button type="submit" class="btn-primary" style="background-color: #ff4d4d;">Oui, supprimer</button>
+        </div>
+    </form>
+</div>
+{% endblock %}
