@@ -16,7 +16,8 @@ urlpatterns = [
     path('showcase/', views.showcase_view, name='showcase'),
     path('showcase/<int:pk>/', views.unPortfolio, name='portfolio'),
     path("showcase/login/", auth_views.LoginView.as_view(template_name = "api/login.html"), name="login"),
-
+    path("showcase/register/", views.inscription_etape_1, name="createAccount"),
+    path("showcase/register_part2/", views.inscription_etape_2, name="inscription_etape_2"),
     path('', include(router.urls)),
     
     path("dashboard/profil/", views.ProjetListView.as_view(), name = 'dashboard'),

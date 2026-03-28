@@ -1,10 +1,13 @@
 
 # Create your views here.
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from .models import *
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
+from django.contrib.auth import login as auth_login
+from .forms import InfoGenericForm, MotDePasseForm
+from django.contrib.auth import get_user_model
 
 def showcase_view(request):
     profiles = Profile.objects.filter(is_superuser=False)
@@ -245,3 +248,71 @@ class ExperienceDeleteView(LoginRequiredMixin, DeleteView):
 
     def get_queryset(self):
         return Experience.objects.filter(owner=self.request.user)
+    
+    
+    
+
+
+
+
+
+User = get_user_model()
+
+# --- VUE ÉTAPE 1 ---
+def inscription_etape_1(request):
+    if request.method == 'POST':
+        form = InfoGenericForm(request.POST, request.FILES)
+        if form.is_valid():
+            
+            nouvel_utilisateur = form.save(commit=False)
+            
+            # 2. Sécurité : On lui met un mot de passe inutilisable temporairement
+            nouvel_utilisateur.set_unusable_password() 
+            nouvel_utilisateur.save()
+            # 2. On range les données nettoyées dans la "Session" (le sac à dos)
+            request.session['utilisateur_en_cours_id'] = nouvel_utilisateur.id
+            
+            return redirect('inscription_etape_2')
+    else:
+        # Si c'est la première visite, on affiche le formulaire vide
+        form = InfoGenericForm()
+        
+    return render(request, 'api/etape1.html', {'form': form})
+
+def inscription_etape_2(request):
+    # Sécurité : Si l'utilisateur essaie d'aller à l'étape 2 sans passer par la 1
+    user_id = request.session.get('utilisateur_en_cours_id')
+    
+    # Sécurité : S'il n'y a pas d'ID, c'est qu'il a sauté l'étape 1. On le renvoie en arrière.
+    if not user_id:
+        return redirect('createAccount')
+
+    if request.method == 'POST':
+        form = MotDePasseForm(request.POST)
+        
+        if form.is_valid():
+            try:
+                # 2. On va chercher notre utilisateur dans la base de données grâce à son ID
+                utilisateur = User.objects.get(id=user_id)
+                
+                # 3. On lui donne enfin son vrai mot de passe définitif
+                utilisateur.set_password(form.cleaned_data['password'])
+                utilisateur.save()
+                
+                # 4. On vide le sac à dos (la session) car l'inscription est terminée
+                del request.session['utilisateur_en_cours_id']
+                
+                # 5. On le connecte automatiquement en utilisant notre alias 'auth_login' !
+                auth_login(request, utilisateur)
+                
+                # 6. Direction le Dashboard !
+                return redirect('dashboard')
+                
+            except User.DoesNotExist:
+                # Petite sécurité au cas où l'utilisateur aurait été supprimé entre temps
+                return redirect('createAccount')
+            
+    else:
+        form = MotDePasseForm()
+
+    return render(request, 'api/etape2.html', {'form': form})

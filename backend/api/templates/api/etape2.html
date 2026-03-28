@@ -1,0 +1,61 @@
+{% extends 'api/base.html' %} {% load static %}
+
+{% block title %}Inscription - Étape 2 | J17V{% endblock %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/input.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="login-page-container">
+    <div class="login-box">
+        
+        <div class="login-visual">
+            <div class="visual-content">
+                <p class="quote-header">SÉCURITÉ</p>
+                <h1 class="visual-title">Protégez<br>Votre Compte</h1>
+                <p class="visual-subtitle">
+                    Choisissez un mot de passe robuste pour sécuriser votre espace personnel et vos futurs projets.
+                </p>
+            </div>
+        </div>
+
+        <div class="login-form-section">
+            <div class="step-indicator">Étape 2 sur 2</div>
+            
+            <h2 class="form-title">Mot de passe</h2>
+            <p class="form-subtitle">Dernière étape avant d'accéder à votre tableau de bord.</p>
+
+            <form method="POST" class="django-login-form">
+                {% csrf_token %}
+
+                {% if form.non_field_errors %}
+                    <div class="form-errors">
+                        {{ form.non_field_errors }}
+                    </div>
+                {% endif %}
+                
+                {% for field in form %}
+                    <div class="input-group">
+                        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                        {{ field }}
+                        
+                        {% for error in field.errors %}
+                            <span class="field-error-text"><i class="fas fa-exclamation-circle"></i> {{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% endfor %}
+
+                <div style="display: flex; gap: 15px; margin-top: 10px;">
+                    <a href="{% url 'createAccount' %}" class="btn-secondary" style="flex: 1; text-align: center; padding: 12px; display: flex; align-items: center; justify-content: center; text-decoration: none;">
+                        <i class="fas fa-arrow-left" style="margin-right: 8px;"></i> Retour
+                    </a>
+                    
+                    <button type="submit" class="btn-submit-login" style="flex: 2; margin-bottom: 0;">
+                        Créer mon compte
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

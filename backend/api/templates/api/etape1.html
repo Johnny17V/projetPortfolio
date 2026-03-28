@@ -1,0 +1,55 @@
+{% extends 'api/base.html' %} {% load static %}
+
+
+{% block title %}Inscription - Étape 1 | J17V{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/input.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="login-page-container">
+    <div class="login-box">
+        
+        <div class="login-visual">
+            <div class="visual-content">
+                <p class="quote-header">REJOIGNEZ-NOUS</p>
+                <h1 class="visual-title">Commencez<br>L'Aventure</h1>
+                <p class="visual-subtitle">
+                    Créez votre portfolio interactif et mettez en valeur vos compétences et vos plus beaux projets.
+                </p>
+            </div>
+        </div>
+
+        <div class="login-form-section">
+            <div class="step-indicator">Étape 1 sur 2</div>
+            
+            <h2 class="form-title">Vos Informations</h2>
+            <p class="form-subtitle">Parlez-nous un peu de vous pour commencer.</p>
+
+            <form method="POST" enctype="multipart/form-data" class="django-login-form">
+                {% csrf_token %}
+                
+                {% for field in form %}
+                    <div class="input-group">
+                        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                        {{ field }}
+                        
+                        {% for error in field.errors %}
+                            <span class="field-error-text"><i class="fas fa-exclamation-circle"></i> {{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% endfor %}
+
+                <button type="submit" class="btn-submit-login">
+                    Suivant <i class="fas fa-arrow-right" style="margin-left: 8px;"></i>
+                </button>
+            </form>
+
+            <p class="signup-prompt" style="margin-top: 20px;">
+                Vous avez déjà un compte ? <a href="{% url 'login' %}">Se connecter</a>
+            </p>
+        </div>
+    </div>
+</div>
+{% endblock %}
