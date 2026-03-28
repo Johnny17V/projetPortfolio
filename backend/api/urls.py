@@ -24,10 +24,17 @@ urlpatterns = [
     path("dashboard/skills/", views.SkillListView.as_view(), name = 'skills'),
     path("dashboard/tags/", views.TagsListView.as_view(), name = 'tags'),
     path("dashboard/reseaux/", views.ReseauxListView.as_view(), name = 'reseaux'),
+    
     path("dashboard/profil/save/", views.ProjetCreateView.as_view(), name='saveProjet'),
     path("dashboard/experience/save/", views.ExperienceCreateView.as_view(), name = 'saveExperience'),
     path("dashboard/skills/save/", views.SkillsCreateView.as_view(), name = 'saveSkills'),
     path("dashboard/tags/save/", views.TagsCreateView.as_view(), name = 'saveTags'),
-    path("dashboard/reseaux/save/", views.ReseauxCreateView.as_view(), name = 'saveReseaux')
+    path("dashboard/reseaux/save/", views.ReseauxCreateView.as_view(), name = 'saveReseaux'),
+    
+    path("dashboard/profil/<int:pk>/update/", views.ProjetUpdateView.as_view(), name = 'updatedashboard'),
+    path("dashboard/experience/<int:pk>/update/", views.ExperienceUpdateView.as_view(), name = 'updateexperience'),
+    path("dashboard/skills/<int:pk>/update/", views.SkillsUpdateView.as_view(), name = 'updateskills'),
+    path("dashboard/tags/<int:pk>/update/", views.TagsUpdateView.as_view(), name = 'updatetags'),
+    path("dashboard/reseaux/<int:pk>/update/", views.ReseauxUpdateView.as_view(), name = 'updatereseaux')
 ]
 
