@@ -4,7 +4,13 @@
 
 {% block content %}
 <div class="content-header">
-    <h1 class="page-title">Ajouter un tag</h1>
+    <h1 class="page-title">
+        {% if object %}
+        Modifier le tag : {{ object.titre }}
+        {% else %}
+        Créer un nouveau tag
+        {% endif %}
+    </h1>
 </div>
 
 <div class="form-panel">
@@ -12,31 +18,31 @@
         {% csrf_token %}
 
         {% if form.non_field_errors %}
-            <div class="alert-error">
-                {{ form.non_field_errors }}
-            </div>
+        <div class="alert-error">
+            {{ form.non_field_errors }}
+        </div>
         {% endif %}
 
         {% for field in form %}
-            <div class="form-group">
-                <label for="{{ field.id_for_label }}" class="form-label">
-                    {{ field.label }}
-                </label>
+        <div class="form-group">
+            <label for="{{ field.id_for_label }}" class="form-label">
+                {{ field.label }}
+            </label>
 
-                <div class="input-wrapper">
-                    {{ field }}
-                </div>
-
-                {% if field.help_text %}
-                    <small class="form-help-text" style="color: var(--gold); opacity: 0.8;">
-                        <i class="fas fa-info-circle"></i> {{ field.help_text }}
-                    </small>
-                {% endif %}
-
-                {% for error in field.errors %}
-                    <span class="field-error-text"><i class="fas fa-exclamation-circle"></i> {{ error }}</span>
-                {% endfor %}
+            <div class="input-wrapper">
+                {{ field }}
             </div>
+
+            {% if field.help_text %}
+            <small class="form-help-text" style="color: var(--gold); opacity: 0.8;">
+                <i class="fas fa-info-circle"></i> {{ field.help_text }}
+            </small>
+            {% endif %}
+
+            {% for error in field.errors %}
+            <span class="field-error-text"><i class="fas fa-exclamation-circle"></i> {{ error }}</span>
+            {% endfor %}
+        </div>
         {% endfor %}
 
         <div class="form-actions">
