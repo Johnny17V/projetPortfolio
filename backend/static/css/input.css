@@ -268,12 +268,37 @@
 
 /* --- Conteneur de la page pour centrer le bloc --- */
 .login-page-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    /* display: flex; */
+    /* justify-content: center; */
+    /* align-items: center; */
+    margin: auto; /* LA MAGIE EST ICI : Centre verticalement et horizontalement sans déborder */
+    width: 100%;
+    max-width: 1100px;
     min-height: 80vh; /* Ajuste selon ton header/footer */
     padding: 20px;
     background-color: #0d0d0d; /* Fond très sombre de ta page */
+}
+
+/* Rend uniquement la partie formulaire défilable si elle est trop longue */
+.login-form-section {
+    max-height: 80vh; /* La boîte ne prendra jamais plus de 80% de l'écran */
+    overflow-y: auto; /* Fait apparaître une barre de défilement interne */
+    padding-right: 20px; /* Évite que le texte touche la barre de défilement */
+}
+
+/* (Optionnel) Pour customiser la barre de défilement (Scrollbar) pour qu'elle soit jolie et sombre */
+.login-form-section::-webkit-scrollbar {
+    width: 8px;
+}
+.login-form-section::-webkit-scrollbar-track {
+    background: transparent;
+}
+.login-form-section::-webkit-scrollbar-thumb {
+    background: #444; 
+    border-radius: 10px;
+}
+.login-form-section::-webkit-scrollbar-thumb:hover {
+    background: #A68A64; /* Devient doré au survol ! */
 }
 
 /* --- La Boîte Principale (Split Screen) --- */

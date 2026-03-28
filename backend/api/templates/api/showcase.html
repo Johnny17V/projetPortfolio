@@ -23,7 +23,14 @@
         <div class="student-scroll" id="studentContainer">
             {% for profile in profiles %}
             <div class="student-card">
-                <img src={{profile.photo.url}} alt="Default">
+
+                {% if profile.photo %}
+                <img src="{{ profile.photo.url }}" alt="Photo de {{ profile.username }}">
+                {% else %}
+                <img src="{% static 'images/default-avatar.jpg' %}" alt="Avatar par défaut">
+
+                {% endif %}
+
                 {% include "../fragments/studentsProfils.html" %}
             </div>
             {% empty %}
