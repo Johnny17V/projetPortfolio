@@ -316,3 +316,12 @@ def inscription_etape_2(request):
         form = MotDePasseForm()
 
     return render(request, 'api/etape2.html', {'form': form})
+
+
+class GalerieProjetsListView(ListView):
+    model = ProjetModel
+    template_name = "api/all_projet.html"
+    context_object_name = "tous_les_projets"
+    
+    queryset = ProjetModel.objects.all()
+    
