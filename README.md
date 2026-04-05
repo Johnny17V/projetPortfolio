@@ -57,8 +57,12 @@ pip install -r requirements.txt
 - Créez la base de données requise en exécutant cette commande SQL : 
   ```sql
   CREATE DATABASE portfoliodb CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+  create database if not exists portfoliodb character set utf8mb4;
+  create user if not exists 'johnny17V'@'localhost' identified by 'portfolio';
+  grant all privileges on portfoliodb.* to 'johnny17V'@'localhost';
+  flush privileges;
   ```
-- ⚠️ **IMPORTANT :** Ouvrez le fichier `settings.py` de Django (ou votre fichier `.env`) et mettez à jour la section `DATABASES` avec **votre propre nom d'utilisateur et mot de passe MySQL local**.
+
 
 ### 5. Appliquer les migrations
 Construisez les tables dans la base de données `portfoliodb` :
