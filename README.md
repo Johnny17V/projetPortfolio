@@ -56,7 +56,6 @@ pip install -r requirements.txt
 - Connectez-vous à votre serveur MySQL local.
 - Créez la base de données requise en exécutant cette commande SQL : 
   ```sql
-  CREATE DATABASE portfoliodb CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
   create database if not exists portfoliodb character set utf8mb4;
   create user if not exists 'johnny17V'@'localhost' identified by 'portfolio';
   grant all privileges on portfoliodb.* to 'johnny17V'@'localhost';
